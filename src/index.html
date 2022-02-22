@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+
+    <style>
+        div {
+            margin-top: 5px;
+        }
+        input {
+            width: 50px;
+            height: 50px;
+            font-size: 40px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input class="input" maxlength="1">
+        <input class="input" maxlength="1">
+        <input class="input" maxlength="1">
+        <input class="input" maxlength="1">
+        <input class="input" maxlength="1">
+        <button>제출</button>
+    </div>
+
+    <script>
+        const answers = ["apple", "bingo", "field", "humor", "idiot", "night", "prime", "saber", "scope", "troll"];
+ 
+        function getRandom(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        const answer = answers[getRandom(0, answers.length)];
+        
+        document.querySelector("button").addEventListener("click", function() {
+            const input = document.querySelectorAll(".input");
+
+            for (var i = 0; i < input.length; i++) {
+                if (input[i].value == answer[i]) {
+                    input[i].style.background = "green";
+                } else if (input[i].value != "" && answer.includes(input[i].value)) {
+                    input[i].style.background = "yellow";
+                } else {
+                    input[i].style.background = "lightgrey";
+                }
+
+                input[i].classList.remove("input");
+                input[i].disabled = true;
+            }
+
+            const template = `<div>
+                <input class="input" maxlength="1">
+                <input class="input" maxlength="1">
+                <input class="input" maxlength="1">
+                <input class="input" maxlength="1">
+                <input class="input" maxlength="1">
+            </div>`;
+            
+            document.querySelector("body").insertAdjacentHTML("beforeend", template);
+        });
+    </script>
+</body>
+</html> 
